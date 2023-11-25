@@ -54,6 +54,16 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_gen_runner: ^5.3.2
+  build_runner: ^2.4.6
+
+flutter_gen:
+  line_length: 80 # Optional (default: 80)
+  output: lib/gen/ # Optional (default: lib/gen/)
+
+  # Optional
+  integrations:
+    flutter_svg: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

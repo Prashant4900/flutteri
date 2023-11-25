@@ -174,6 +174,7 @@ class MyHomePage extends StatelessWidget {
                   return ListView.separated(
                     itemCount: 3,
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (context, index) => verticalMargin24,
                     itemBuilder: (context, index) {
                       return const FeaturesWidget();
