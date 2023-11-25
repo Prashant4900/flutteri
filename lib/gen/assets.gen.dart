@@ -11,14 +11,24 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsComponentsGen {
+  const $AssetsComponentsGen();
+
+  /// File path: assets/components/button.svg
+  SvgGenImage get button => const SvgGenImage('assets/components/button.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [button];
+}
+
 class Assets {
   Assets._();
 
-  static const AssetGenImage bgPng = AssetGenImage('assets/bg.png');
-  static const SvgGenImage bgSvg = SvgGenImage('assets/bg.svg');
+  static const SvgGenImage bg = SvgGenImage('assets/bg.svg');
+  static const $AssetsComponentsGen components = $AssetsComponentsGen();
 
   /// List of all assets
-  List<dynamic> get values => [bgPng, bgSvg];
+  List<SvgGenImage> get values => [bg];
 }
 
 class AssetGenImage {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
+import 'package:flutteri/gen/assets.gen.dart';
 import 'package:flutteri/layout/responsive_layout_builder.dart';
 import 'package:flutteri/widgets/navbar.dart';
 
@@ -64,13 +65,7 @@ class MyComponentsPage extends StatelessWidget {
                 return ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return Container(
-                      height: 330,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                    );
+                    return const ComponentsCardWidget();
                   },
                   separatorBuilder: (context, index) {
                     return verticalMargin12;
@@ -127,9 +122,27 @@ class _ComponentsCardWidgetState extends State<ComponentsCardWidget> {
         width: width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surface.withOpacity(.3),
         ),
-        child: Center(child: Text('$constraints height $height')),
+        child: Column(
+          children: [
+            Expanded(child: Assets.components.button.svg()),
+            ListTile(
+              tileColor: Theme.of(context).colorScheme.surface,
+              title: Text(
+                'Button',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              subtitle: Text(
+                '8 Components',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
       );
     });
   }
