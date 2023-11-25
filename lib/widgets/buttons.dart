@@ -67,18 +67,22 @@ class CustomElevatedButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (prefixIcon != null) Icon(prefixIcon, size: 16),
-            horizontalMargin12,
+            if (prefixIcon != null) ...[
+              Icon(prefixIcon, size: 16),
+              horizontalMargin12,
+            ],
             Text(
               label ?? 'Button',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: textColor,
                   ),
               textAlign: TextAlign.center,
             ),
-            horizontalMargin12,
-            if (suffixIcon != null) Icon(suffixIcon, size: 16)
+            if (suffixIcon != null) ...[
+              horizontalMargin12,
+              Icon(suffixIcon, size: 16)
+            ]
           ],
         ),
       ),

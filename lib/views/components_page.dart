@@ -62,6 +62,7 @@ class MyComponentsPage extends StatelessWidget {
             switch (layoutSize) {
               case ResponsiveLayoutSize.small:
                 return ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Container(
                       height: 330,
@@ -74,7 +75,7 @@ class MyComponentsPage extends StatelessWidget {
                   separatorBuilder: (context, index) {
                     return verticalMargin12;
                   },
-                  itemCount: 5,
+                  itemCount: 10,
                   shrinkWrap: true,
                 );
               default:
