@@ -4,11 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/theme/cubit/theme_cubit.dart';
 import 'package:flutteri/widgets/buttons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   const NavBar({
     super.key,
   });
+
+  Future<void> _launchUrl(String url) async {
+    final url0 = Uri.parse(url);
+
+    if (!await launchUrl(url0)) {
+      // throw Exception('Could not launch $url0');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +30,9 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.3),
       ),
       actions: [
-        const BoxIconButton(
-          icon: Icon(AkarIcons.github_fill, size: 16),
+        BoxIconButton(
+          icon: const Icon(AkarIcons.github_fill, size: 16),
+          onTap: () => _launchUrl('https://github.com/Prashant4900/flutteri'),
         ),
         horizontalMargin12,
         BlocBuilder<ThemeCubit, ThemeState>(
