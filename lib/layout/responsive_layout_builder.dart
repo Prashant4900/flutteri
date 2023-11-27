@@ -10,12 +10,12 @@ typedef ResponsiveLayoutWidgetBuilder = Widget Function(BuildContext, Widget?);
 ///breakpoints
 class ResponsiveLayoutBuilder extends StatelessWidget {
   const ResponsiveLayoutBuilder({
-    Key? key,
     required this.small,
     required this.medium,
     required this.large,
+    super.key,
     this.child,
-  }) : super(key: key);
+  });
 
   final ResponsiveLayoutWidgetBuilder small;
   final ResponsiveLayoutWidgetBuilder medium;

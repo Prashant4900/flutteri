@@ -4,9 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/layout/responsive_layout_builder.dart';
 import 'package:flutteri/routes/routes.dart';
+import 'package:flutteri/utils/utils.dart';
 import 'package:flutteri/widgets/buttons.dart';
 import 'package:flutteri/widgets/features_widget.dart';
 import 'package:flutteri/widgets/navbar.dart';
+import 'package:go_router/go_router.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -118,13 +120,16 @@ class MyHomePage extends StatelessWidget {
                               Theme.of(context).colorScheme.primary,
                           textColor: Theme.of(context).colorScheme.onPrimary,
                           onTap: () {
-                            Navigator.pushNamed(context, MyRoutes.components);
+                            context.goNamed(RoutePath.components.path);
                           },
                         ),
                         CustomElevatedButton(
                           label: 'Github',
                           prefixIcon: AkarIcons.github_fill,
                           width: MediaQuery.sizeOf(context).width / 2.25,
+                          onTap: () => urlLaunch(
+                            'https://github.com/Prashant4900/flutteri',
+                          ),
                         ),
                       ],
                     ),
@@ -153,11 +158,15 @@ class MyHomePage extends StatelessWidget {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       textColor: Theme.of(context).colorScheme.onPrimary,
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.components);
+                        context.goNamed(RoutePath.components.path);
                       },
                     ),
-                    const CustomElevatedButton(
-                        label: 'Github', prefixIcon: AkarIcons.github_fill),
+                    CustomElevatedButton(
+                      label: 'Github',
+                      prefixIcon: AkarIcons.github_fill,
+                      onTap: () =>
+                          urlLaunch('https://github.com/Prashant4900/flutteri'),
+                    ),
                     const CustomElevatedButton(
                       label: 'Get started with Flutteri',
                       suffixIcon: AkarIcons.tablet_device,

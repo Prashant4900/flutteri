@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/gen/assets.gen.dart';
 import 'package:flutteri/layout/responsive_layout_builder.dart';
+import 'package:flutteri/routes/routes.dart';
 import 'package:flutteri/widgets/navbar.dart';
+import 'package:go_router/go_router.dart';
 
 class MyComponentsPage extends StatelessWidget {
   const MyComponentsPage({super.key});
@@ -24,14 +26,20 @@ class MyComponentsPage extends StatelessWidget {
         child: (ResponsiveLayoutSize layoutSize) {
           switch (layoutSize) {
             case ResponsiveLayoutSize.small:
-              return bodyWidget(context,
-                  padding: horizontalPadding12 + verticalPadding12);
+              return bodyWidget(
+                context,
+                padding: horizontalPadding12 + verticalPadding12,
+              );
             case ResponsiveLayoutSize.medium:
-              return bodyWidget(context,
-                  padding: horizontalPadding32 + verticalPadding16);
+              return bodyWidget(
+                context,
+                padding: horizontalPadding32 + verticalPadding16,
+              );
             case ResponsiveLayoutSize.large:
-              return bodyWidget(context,
-                  padding: horizontalPadding48 + verticalPadding24);
+              return bodyWidget(
+                context,
+                padding: horizontalPadding48 + verticalPadding24,
+              );
           }
         },
       ),
@@ -73,12 +81,21 @@ class MyComponentsPage extends StatelessWidget {
                   itemCount: 10,
                   shrinkWrap: true,
                 );
-              default:
+              case ResponsiveLayoutSize.medium:
                 return Wrap(
                   spacing: 10,
                   runSpacing: 10,
                   children: [
-                    for (var _ in [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                    for (final _ in [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                      const ComponentsCardWidget(),
+                  ],
+                );
+              case ResponsiveLayoutSize.large:
+                return Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: [
+                    for (final _ in [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
                       const ComponentsCardWidget(),
                   ],
                 );
@@ -106,44 +123,56 @@ class _ComponentsCardWidgetState extends State<ComponentsCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 515 && constraints.maxWidth < 700) {
-        width = 450;
-        height = 350;
-      } else if (constraints.maxWidth > 700 && constraints.maxWidth < 1000) {
-        width = 400;
-        height = 300;
-      } else {
-        width = 325;
-        height = 280;
-      }
-      return Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).colorScheme.surface.withOpacity(.3),
-        ),
-        child: Column(
-          children: [
-            Expanded(child: Assets.components.button.svg()),
-            ListTile(
-              tileColor: Theme.of(context).colorScheme.surface,
-              title: Text(
-                'Button',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              subtitle: Text(
-                '8 Components',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.grey),
-              ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 515 && constraints.maxWidth < 700) {
+          width = 450;
+          height = 350;
+        } else if (constraints.maxWidth > 700 && constraints.maxWidth < 1000) {
+          width = 400;
+          height = 300;
+        } else {
+          width = 325;
+          height = 280;
+        }
+        return InkWell(
+          onTap: () => context.goNamed(RoutePath.code.path),
+          child: Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Theme.of(context).colorScheme.surface.withOpacity(.3),
             ),
-          ],
-        ),
-      );
-    });
+            child: Column(
+              children: [
+                Expanded(
+                  child: Assets.components.button.svg(
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  tileColor: Theme.of(context).colorScheme.surface,
+                  title: Text(
+                    'Button',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  subtitle: Text(
+                    '8 Components',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

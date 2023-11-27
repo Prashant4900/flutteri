@@ -30,7 +30,7 @@ class FeaturesWidget extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Colors.grey,
               ),
-        )
+        ),
       ],
     );
   }

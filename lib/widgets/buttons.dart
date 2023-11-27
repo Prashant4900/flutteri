@@ -3,13 +3,13 @@ import 'package:flutteri/constants/common.dart';
 
 class BoxIconButton extends StatelessWidget {
   const BoxIconButton({
-    super.key,
     required this.icon,
+    super.key,
     this.onTap,
   });
 
   final Widget icon;
-  final Function()? onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,6 @@ class BoxIconButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.grey.withOpacity(.5),
-            width: 1,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -48,7 +47,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final double? width;
-  final Function()? onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,6 @@ class CustomElevatedButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (prefixIcon != null) ...[
               Icon(prefixIcon, size: 16),
@@ -81,8 +79,8 @@ class CustomElevatedButton extends StatelessWidget {
             ),
             if (suffixIcon != null) ...[
               horizontalMargin12,
-              Icon(suffixIcon, size: 16)
-            ]
+              Icon(suffixIcon, size: 16),
+            ],
           ],
         ),
       ),
