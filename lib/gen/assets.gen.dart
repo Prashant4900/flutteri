@@ -21,14 +21,32 @@ class $AssetsComponentsGen {
   List<SvgGenImage> get values => [button];
 }
 
+class $AssetsSvgGen {
+  const $AssetsSvgGen();
+
+  /// File path: assets/svg/fire.svg
+  SvgGenImage get fire => const SvgGenImage('assets/svg/fire.svg');
+
+  /// File path: assets/svg/night.svg
+  SvgGenImage get night => const SvgGenImage('assets/svg/night.svg');
+
+  /// File path: assets/svg/scroll.svg
+  SvgGenImage get scroll => const SvgGenImage('assets/svg/scroll.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [fire, night, scroll];
+}
+
 class Assets {
   Assets._();
 
   static const SvgGenImage bg = SvgGenImage('assets/bg.svg');
   static const $AssetsComponentsGen components = $AssetsComponentsGen();
+  static const AssetGenImage icon = AssetGenImage('assets/icon.png');
+  static const $AssetsSvgGen svg = $AssetsSvgGen();
 
   /// List of all assets
-  List<SvgGenImage> get values => [bg];
+  List<dynamic> get values => [bg, icon];
 }
 
 class AssetGenImage {

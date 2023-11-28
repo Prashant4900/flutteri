@@ -4,14 +4,24 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/layout/responsive_layout_builder.dart';
 import 'package:flutteri/routes/routes.dart';
-import 'package:flutteri/utils/utils.dart';
 import 'package:flutteri/widgets/buttons.dart';
 import 'package:flutteri/widgets/features_widget.dart';
 import 'package:flutteri/widgets/navbar.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,9 +137,14 @@ class MyHomePage extends StatelessWidget {
                           label: 'Github',
                           prefixIcon: AkarIcons.github_fill,
                           width: MediaQuery.sizeOf(context).width / 2.25,
-                          onTap: () => urlLaunch(
-                            'https://github.com/Prashant4900/flutteri',
-                          ),
+                          onTap: () {
+                            launchUrl(
+                              Uri.parse(
+                                'https://github.com/Prashant4900/flutteri',
+                              ),
+                              mode: LaunchMode.externalApplication,
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -164,8 +179,12 @@ class MyHomePage extends StatelessWidget {
                     CustomElevatedButton(
                       label: 'Github',
                       prefixIcon: AkarIcons.github_fill,
-                      onTap: () =>
-                          urlLaunch('https://github.com/Prashant4900/flutteri'),
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse('https://github.com/Prashant4900/flutteri'),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
                     ),
                     const CustomElevatedButton(
                       label: 'Get started with Flutteri',
@@ -186,7 +205,7 @@ class MyHomePage extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (context, index) => verticalMargin24,
                     itemBuilder: (context, index) {
-                      return const FeaturesWidget();
+                      return FeaturesWidget(index: index);
                     },
                   );
                 }
@@ -196,9 +215,9 @@ class MyHomePage extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const SizedBox(
+                      return SizedBox(
                         width: 240,
-                        child: FeaturesWidget(),
+                        child: FeaturesWidget(index: index),
                       );
                     },
                     separatorBuilder: (context, index) {

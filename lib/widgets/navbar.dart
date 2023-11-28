@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/routes/routes.dart';
 import 'package:flutteri/theme/theme_service.dart';
-import 'package:flutteri/utils/utils.dart';
 import 'package:flutteri/widgets/buttons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   const NavBar({
@@ -29,7 +29,12 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         BoxIconButton(
           icon: const Icon(AkarIcons.github_fill, size: 16),
-          onTap: () => urlLaunch('https://github.com/Prashant4900/flutteri'),
+          onTap: () {
+            launchUrl(
+              Uri.parse('https://github.com/Prashant4900/flutteri'),
+              mode: LaunchMode.externalApplication,
+            );
+          },
         ),
         horizontalMargin12,
         BoxIconButton(

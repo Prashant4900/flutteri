@@ -224,70 +224,73 @@ class _MyCodePageState extends State<MyCodePage> with TickerProviderStateMixin {
                 dragStartBehavior: DragStartBehavior.down,
                 children: [
                   const Text('data'),
-                  SingleChildScrollView(
-                    padding: horizontalPadding24,
-                    child: Stack(
-                      children: [
-                        Column(
-                          children: [
-                            verticalMargin24,
-                            GestureDetector(
-                              onVerticalDragStart: (_) {},
-                              child: HighlightView(
-                                _markDownData,
-                                language: 'dart',
-                                theme: androidStudioTheme,
+                  ColoredBox(
+                    color: const Color(0xff141517),
+                    child: SingleChildScrollView(
+                      padding: horizontalPadding24,
+                      child: Stack(
+                        children: [
+                          Column(
+                            children: [
+                              verticalMargin24,
+                              GestureDetector(
+                                onVerticalDragStart: (_) {},
+                                child: HighlightView(
+                                  _markDownData,
+                                  language: 'dart',
+                                  theme: androidStudioTheme,
+                                ),
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              launchUrl(
+                                Uri.parse('https://example.com'),
+                                mode: LaunchMode.externalApplication,
+                              );
+                            },
+                            child: Padding(
+                              padding: topPadding4,
+                              child: Text(
+                                'View complete example on DartPad.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      color: Colors.blue,
+                                    ),
                               ),
                             ),
-                          ],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            launchUrl(
-                              Uri.parse('https://example.com'),
-                              mode: LaunchMode.externalApplication,
-                            );
-                          },
-                          child: Padding(
-                            padding: topPadding4,
-                            child: Text(
-                              'View complete example on DartPad.',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color: Colors.blue,
-                                  ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: IconButton(
+                              onPressed: () {
+                                try {
+                                  Clipboard.setData(
+                                    const ClipboardData(
+                                      text: _markDownData,
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Copied to clipboard'),
+                                    ),
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Something went wrong.'),
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.copy),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: IconButton(
-                            onPressed: () {
-                              try {
-                                Clipboard.setData(
-                                  const ClipboardData(
-                                    text: _markDownData,
-                                  ),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Copied to clipboard'),
-                                  ),
-                                );
-                              } catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Something went wrong.'),
-                                  ),
-                                );
-                              }
-                            },
-                            icon: const Icon(Icons.copy),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
