@@ -33,7 +33,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_highlight: ^0.7.0
-  flutter_markdown: ^0.6.18+2
   flutter_native_splash: ^2.3.6
   flutter_svg: ^2.0.9
   flutter_web_plugins:
@@ -76,6 +75,7 @@ flutter:
     - assets/
     - assets/components/
     - assets/svg/
+    - assets/db/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

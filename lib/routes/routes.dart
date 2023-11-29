@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutteri/routes/code_screen_argument.dart';
 import 'package:flutteri/views/code_page.dart';
 import 'package:flutteri/views/components_page.dart';
 import 'package:flutteri/views/error_page.dart';
@@ -33,8 +34,10 @@ class RouteManager {
             routes: [
               GoRoute(
                 name: RoutePath.code.name,
-                path: RoutePath.code.path,
-                builder: (context, state) => const MyCodePage(),
+                path: ':slug',
+                builder: (context, state) => MyCodePage(
+                  args: state.extra! as CodeScreenArgument,
+                ),
               ),
             ],
           ),

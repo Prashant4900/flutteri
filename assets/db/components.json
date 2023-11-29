@@ -1,0 +1,90 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "name": "AppBar",
+      "slug": "appbar",
+      "icon": "",
+      "types": [
+        {
+          "id": 0,
+          "title": "Simple AppBar",
+          "gist-id": "5c0e154dd50af4a9ac856908061291bc",
+          "components-gist-id": "",
+          "demo": ""
+        },
+        {
+          "id": 1,
+          "title": "Normal AppBar",
+          "gist-id": "5c0e154dd50af4a9ac856908061291bc",
+          "components-gist-id": "",
+          "demo": ""
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Banner",
+      "slug": "banner",
+      "icon": "",
+      "types": [
+        {
+          "id": 0,
+          "title": "Simple Banner",
+          "gist-id": "5c0e154dd50af4a9ac856908061291bc",
+          "components-gist-id": "",
+          "demo": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Buttons",
+      "slug": "buttons",
+      "icon": "",
+      "types": []
+    },
+    {
+      "id": 3,
+      "name": "Cards",
+      "slug": "cards",
+      "icon": "",
+      "types": []
+    },
+    {
+      "id": 4,
+      "name": "Footer",
+      "slug": "footer",
+      "icon": "",
+      "types": []
+    },
+    {
+      "id": 5,
+      "name": "TextField",
+      "slug": "textfield",
+      "icon": "",
+      "types": []
+    },
+    {
+      "id": 6,
+      "name": "Slider",
+      "slug": "slider",
+      "icon": "",
+      "types": []
+    },
+    {
+      "id": 7,
+      "name": "Checkbox",
+      "slug": "checkbox",
+      "icon": "",
+      "types": []
+    },
+    {
+      "id": 8,
+      "name": "Radio Button",
+      "slug": "radio-button",
+      "icon": "",
+      "types": []
+    }
+  ]
+}

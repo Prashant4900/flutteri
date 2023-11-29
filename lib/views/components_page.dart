@@ -2,12 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/gen/assets.gen.dart';
 import 'package:flutteri/layout/responsive_layout_builder.dart';
+import 'package:flutteri/models/component_model.dart';
+import 'package:flutteri/models/type_model.dart';
+import 'package:flutteri/routes/code_screen_argument.dart';
 import 'package:flutteri/routes/routes.dart';
+import 'package:flutteri/service/component_provider.dart';
 import 'package:flutteri/widgets/navbar.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-class MyComponentsPage extends StatelessWidget {
+class MyComponentsPage extends StatefulWidget {
   const MyComponentsPage({super.key});
+
+  @override
+  State<MyComponentsPage> createState() => _MyComponentsPageState();
+}
+
+class _MyComponentsPageState extends State<MyComponentsPage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ComponentProvider>(context, listen: false).loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,37 +84,49 @@ class MyComponentsPage extends StatelessWidget {
             return child!;
           },
           child: (ResponsiveLayoutSize layoutSize) {
-            switch (layoutSize) {
-              case ResponsiveLayoutSize.small:
-                return ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return const ComponentsCardWidget();
-                  },
-                  separatorBuilder: (context, index) {
-                    return verticalMargin12;
-                  },
-                  itemCount: 10,
-                  shrinkWrap: true,
-                );
-              case ResponsiveLayoutSize.medium:
-                return Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: [
-                    for (final _ in [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-                      const ComponentsCardWidget(),
-                  ],
-                );
-              case ResponsiveLayoutSize.large:
-                return Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: [
-                    for (final _ in [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-                      const ComponentsCardWidget(),
-                  ],
-                );
+            if (layoutSize == ResponsiveLayoutSize.small) {
+              return Consumer<ComponentProvider>(
+                builder: (context, componentProvider, child) {
+                  if (componentProvider.components.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return ComponentsCardWidget(
+                        component: componentProvider.components[index],
+                        componentList:
+                            componentProvider.components[index].components!,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return verticalMargin12;
+                    },
+                    itemCount: componentProvider.components.length,
+                    shrinkWrap: true,
+                  );
+                },
+              );
+            } else {
+              return Consumer<ComponentProvider>(
+                builder: (context, componentProvider, child) {
+                  if (componentProvider.components.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final components = componentProvider.components;
+                  return Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      for (var i = 0; i < components.length; i++)
+                        ComponentsCardWidget(
+                          component: components[i],
+                          componentList: components[i].components!,
+                        ),
+                    ],
+                  );
+                },
+              );
             }
           },
         ),
@@ -110,8 +138,13 @@ class MyComponentsPage extends StatelessWidget {
 
 class ComponentsCardWidget extends StatefulWidget {
   const ComponentsCardWidget({
+    required this.component,
+    required this.componentList,
     super.key,
   });
+
+  final Datum component;
+  final List<TypeModel> componentList;
 
   @override
   State<ComponentsCardWidget> createState() => _ComponentsCardWidgetState();
@@ -136,7 +169,14 @@ class _ComponentsCardWidgetState extends State<ComponentsCardWidget> {
           height = 280;
         }
         return InkWell(
-          onTap: () => context.goNamed(RoutePath.code.path),
+          onTap: () => context.goNamed(
+            RoutePath.code.name,
+            pathParameters: {'slug': widget.component.slug!},
+            extra: CodeScreenArgument(
+              components: widget.componentList,
+              categoryName: widget.component.name!,
+            ),
+          ),
           child: Container(
             height: height,
             width: width,
@@ -157,11 +197,11 @@ class _ComponentsCardWidgetState extends State<ComponentsCardWidget> {
                 ListTile(
                   tileColor: Theme.of(context).colorScheme.surface,
                   title: Text(
-                    'Button',
+                    widget.component.name!,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   subtitle: Text(
-                    '8 Components',
+                    '${widget.componentList.length} Components',
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!
