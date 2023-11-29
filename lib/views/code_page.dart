@@ -68,33 +68,33 @@ class _MyCodePageState extends State<MyCodePage> with TickerProviderStateMixin {
   Widget bodyWidget(BuildContext context, {required EdgeInsets padding}) {
     final components = widget.args.components;
     final categoryName = widget.args.categoryName;
-    return Padding(
+    return ListView(
+      shrinkWrap: true,
       padding: padding,
-      child: ListView(
-        shrinkWrap: true,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CustomBackButton(),
-          verticalMargin16,
-          Text(
-            categoryName,
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontWeight: FontWeight.w900,
-                ),
-          ),
-          verticalMargin12,
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: components.length,
-            itemBuilder: (context, index) {
-              return CodeSandBox(
-                tabController: _tabController,
-                model: components[index],
-              );
-            },
-          ),
-        ],
-      ),
+      children: [
+        const CustomBackButton(),
+        verticalMargin16,
+        Text(
+          categoryName,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.w900,
+              ),
+        ),
+        verticalMargin12,
+        ListView.separated(
+          shrinkWrap: true,
+          itemCount: components.length,
+          itemBuilder: (context, index) {
+            return CodeSandBox(
+              tabController: _tabController,
+              model: components[index],
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return verticalMargin32;
+          },
+        ),
+      ],
     );
   }
 }

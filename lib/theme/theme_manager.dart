@@ -6,9 +6,7 @@ class ThemeManager {
     scaffoldBackgroundColor: const Color(0xFFEFF1F3),
 
     // Color Scheme
-    colorScheme: const ColorScheme.light(
-      surface: Colors.white,
-    ),
+    colorScheme: const ColorScheme.light(),
 
     // AppBar Theme
     appBarTheme: AppBarTheme(
@@ -42,7 +40,6 @@ class ThemeManager {
 
     // Color Scheme
     colorScheme: const ColorScheme.dark(
-      brightness: Brightness.dark,
       primary: Color(0xFFF8D65B),
       surface: Color(0xFF383A3F),
     ),
