@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/gen/assets.gen.dart';
-import 'package:flutteri/layout/responsive_layout_builder.dart';
+import 'package:flutteri/layout/responsive/responsive_layout_builder.dart';
+import 'package:flutteri/layout/switch/switch_case_widget.dart';
 import 'package:flutteri/models/component_model.dart';
-import 'package:flutteri/models/type_model.dart';
-import 'package:flutteri/routes/code_screen_argument.dart';
+import 'package:flutteri/routes/component_page_args.dart';
 import 'package:flutteri/routes/routes.dart';
-import 'package:flutteri/service/component_provider.dart';
-import 'package:flutteri/widgets/navbar.dart';
+import 'package:flutteri/views/widgets/navbar.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-class MyComponentsPage extends StatefulWidget {
-  const MyComponentsPage({super.key});
+final categoryList = <CategoryModel>[
+  CategoryModel(id: 0, name: 'App Bar', widgetSwitchCase: AppBarCase()),
+  CategoryModel(id: 1, name: 'Banner', widgetSwitchCase: BannerCase()),
+  CategoryModel(id: 2, name: 'Buttons', widgetSwitchCase: ButtonCase()),
+  CategoryModel(id: 3, name: 'Cards', widgetSwitchCase: CardsCase()),
+  CategoryModel(id: 4, name: 'Footer', widgetSwitchCase: FooterCase()),
+  CategoryModel(id: 5, name: 'TextField', widgetSwitchCase: TextFieldCase()),
+  CategoryModel(id: 6, name: 'Slider', widgetSwitchCase: SliderCase()),
+  CategoryModel(id: 7, name: 'Checkbox', widgetSwitchCase: CheckBoxCase()),
+  CategoryModel(
+    id: 8,
+    name: 'Radio Button',
+    widgetSwitchCase: RadioButtonsCase(),
+  ),
+];
+
+class MyCategoryPage extends StatefulWidget {
+  const MyCategoryPage({super.key});
 
   @override
-  State<MyComponentsPage> createState() => _MyComponentsPageState();
+  State<MyCategoryPage> createState() => _MyCategoryPageState();
 }
 
-class _MyComponentsPageState extends State<MyComponentsPage> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<ComponentProvider>(context, listen: false).loadData();
-  }
-
+class _MyCategoryPageState extends State<MyCategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,47 +93,31 @@ class _MyComponentsPageState extends State<MyComponentsPage> {
           },
           child: (ResponsiveLayoutSize layoutSize) {
             if (layoutSize == ResponsiveLayoutSize.small) {
-              return Consumer<ComponentProvider>(
-                builder: (context, componentProvider, child) {
-                  if (componentProvider.components.isEmpty) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return ComponentsCardWidget(
-                        component: componentProvider.components[index],
-                        componentList:
-                            componentProvider.components[index].components!,
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return verticalMargin12;
-                    },
-                    itemCount: componentProvider.components.length,
-                    shrinkWrap: true,
+              return ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return ComponentsCardWidget(
+                    widgetSwitchCase: categoryList[index].widgetSwitchCase!,
+                    name: categoryList[index].name!,
                   );
                 },
+                separatorBuilder: (context, index) {
+                  return verticalMargin12;
+                },
+                itemCount: categoryList.length,
+                shrinkWrap: true,
               );
             } else {
-              return Consumer<ComponentProvider>(
-                builder: (context, componentProvider, child) {
-                  if (componentProvider.components.isEmpty) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  final components = componentProvider.components;
-                  return Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: [
-                      for (var i = 0; i < components.length; i++)
-                        ComponentsCardWidget(
-                          component: components[i],
-                          componentList: components[i].components!,
-                        ),
-                    ],
-                  );
-                },
+              return Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  for (var i = 0; i < categoryList.length; i++)
+                    ComponentsCardWidget(
+                      widgetSwitchCase: categoryList[i].widgetSwitchCase!,
+                      name: categoryList[i].name!,
+                    ),
+                ],
               );
             }
           },
@@ -138,13 +130,13 @@ class _MyComponentsPageState extends State<MyComponentsPage> {
 
 class ComponentsCardWidget extends StatefulWidget {
   const ComponentsCardWidget({
-    required this.component,
-    required this.componentList,
+    required this.name,
+    required this.widgetSwitchCase,
     super.key,
   });
 
-  final Datum component;
-  final List<TypeModel> componentList;
+  final String name;
+  final WidgetSwitchCase widgetSwitchCase;
 
   @override
   State<ComponentsCardWidget> createState() => _ComponentsCardWidgetState();
@@ -170,11 +162,11 @@ class _ComponentsCardWidgetState extends State<ComponentsCardWidget> {
         }
         return InkWell(
           onTap: () => context.goNamed(
-            RoutePath.code.name,
-            pathParameters: {'slug': widget.component.slug!},
-            extra: CodeScreenArgument(
-              components: widget.componentList,
-              categoryName: widget.component.name!,
+            RoutePath.components.name,
+            pathParameters: {'slug': widget.name.toSlug},
+            extra: ComponentPageArgs(
+              categoryName: widget.name,
+              pageState: widget.widgetSwitchCase,
             ),
           ),
           child: Container(
@@ -197,11 +189,11 @@ class _ComponentsCardWidgetState extends State<ComponentsCardWidget> {
                 ListTile(
                   tileColor: Theme.of(context).colorScheme.surface,
                   title: Text(
-                    widget.component.name!,
+                    widget.name,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   subtitle: Text(
-                    '${widget.componentList.length} Components',
+                    '0 Components',
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!

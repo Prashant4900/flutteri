@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutteri/layout/layout.dart';
+import 'package:flutteri/layout/responsive/layout.dart';
 
 enum ResponsiveLayoutSize { small, medium, large }
 

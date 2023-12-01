@@ -7,20 +7,20 @@ final featureList = [
   {
     'icon': Assets.svg.fire.path,
     'title': 'Flexible',
-    'subtitle':
-        'All components are built with Mantine theme, change colors, fonts, shadows and other properties.',
+    'subtitle': '''
+All components are built with Flutteri theme, change colors, fonts, shadows and other properties.''',
   },
   {
     'icon': Assets.svg.night.path,
     'title': 'Light and dark theme',
-    'subtitle':
-        'Most components support both dark and light color schemes by default, no additional modifications needed.',
+    'subtitle': '''
+Most components support both dark and light color schemes by default, no additional modifications needed.''',
   },
   {
     'icon': Assets.svg.scroll.path,
     'title': 'Free for everyone',
-    'subtitle':
-        'Free, open source, community-driven, MIT license. Use anywhere, including commercial projects.',
+    'subtitle': '''
+Free, open source, community-driven, MIT license. Use anywhere, including commercial projects.''',
   },
 ];
 

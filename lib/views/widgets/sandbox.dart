@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutteri/constants/common.dart';
-import 'package:flutteri/models/type_model.dart';
 import 'package:flutteri/theme/code_preview_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -86,12 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
 class CodeSandBox extends StatelessWidget {
   const CodeSandBox({
     required TabController tabController,
-    required this.model,
     super.key,
   }) : _tabController = tabController;
 
   final TabController _tabController;
-  final TypeModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +108,7 @@ class CodeSandBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                model.title!,
+                'model.title!',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
@@ -184,7 +181,7 @@ class CodeSandBox extends StatelessWidget {
                         onTap: () {
                           launchUrl(
                             Uri.parse(
-                              'https://dartpad.dev/?id=${model.gistId}',
+                              'https://dartpad.dev/?id={model.gistId}',
                             ),
                             mode: LaunchMode.externalApplication,
                           );

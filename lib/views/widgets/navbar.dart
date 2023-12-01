@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/routes/routes.dart';
 import 'package:flutteri/theme/theme_service.dart';
-import 'package:flutteri/widgets/buttons.dart';
+import 'package:flutteri/views/widgets/buttons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

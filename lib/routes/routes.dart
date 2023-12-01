@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutteri/routes/code_screen_argument.dart';
-import 'package:flutteri/views/code_page.dart';
-import 'package:flutteri/views/components_page.dart';
-import 'package:flutteri/views/error_page.dart';
-import 'package:flutteri/views/home_page.dart';
+import 'package:flutteri/routes/component_page_args.dart';
+import 'package:flutteri/views/pages/category_page.dart';
+import 'package:flutteri/views/pages/component_page.dart';
+import 'package:flutteri/views/pages/error_page.dart';
+import 'package:flutteri/views/pages/home_page.dart';
 import 'package:go_router/go_router.dart';
 
 enum RoutePath {
   home(path: '/'),
-  components(path: 'components'),
-  code(path: 'code');
+  categories(path: 'categories'),
+  components(path: 'components');
 
   const RoutePath({required this.path});
 
@@ -28,15 +28,15 @@ class RouteManager {
             const MaterialPage(child: MyHomePage()),
         routes: [
           GoRoute(
-            name: RoutePath.components.name,
-            path: RoutePath.components.path,
-            builder: (context, state) => const MyComponentsPage(),
+            name: RoutePath.categories.name,
+            path: RoutePath.categories.path,
+            builder: (context, state) => const MyCategoryPage(),
             routes: [
               GoRoute(
-                name: RoutePath.code.name,
+                name: RoutePath.components.name,
                 path: ':slug',
-                builder: (context, state) => MyCodePage(
-                  args: state.extra! as CodeScreenArgument,
+                builder: (context, state) => MyComponentPage(
+                  args: state.extra! as ComponentPageArgs,
                 ),
               ),
             ],

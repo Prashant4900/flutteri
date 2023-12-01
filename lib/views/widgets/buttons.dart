@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutteri/constants/common.dart';
+import 'package:go_router/go_router.dart';
 
 class BoxIconButton extends StatelessWidget {
   const BoxIconButton({
@@ -84,6 +85,39 @@ class CustomElevatedButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomBackButton extends StatelessWidget {
+  const CustomBackButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: () => context.pop(),
+          child: const Icon(
+            Icons.arrow_back,
+            size: 16,
+            color: Colors.blue,
+          ),
+        ),
+        horizontalMargin4,
+        InkWell(
+          onTap: () => context.pop(),
+          child: Text(
+            'Back to all components',
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.blue,
+                ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -2,11 +2,11 @@ import 'package:akar_icons_flutter/akar_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutteri/constants/common.dart';
-import 'package:flutteri/layout/responsive_layout_builder.dart';
+import 'package:flutteri/layout/responsive/responsive_layout_builder.dart';
 import 'package:flutteri/routes/routes.dart';
-import 'package:flutteri/widgets/buttons.dart';
-import 'package:flutteri/widgets/features_widget.dart';
-import 'package:flutteri/widgets/navbar.dart';
+import 'package:flutteri/views/widgets/buttons.dart';
+import 'package:flutteri/views/widgets/features_widget.dart';
+import 'package:flutteri/views/widgets/navbar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Theme.of(context).colorScheme.primary,
                           textColor: Theme.of(context).colorScheme.onPrimary,
                           onTap: () {
-                            context.goNamed(RoutePath.components.path);
+                            context.goNamed(RoutePath.categories.path);
                           },
                         ),
                         CustomElevatedButton(
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       textColor: Theme.of(context).colorScheme.onPrimary,
                       onTap: () {
-                        context.goNamed(RoutePath.components.path);
+                        context.goNamed(RoutePath.categories.path);
                       },
                     ),
                     CustomElevatedButton(
