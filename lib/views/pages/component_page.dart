@@ -3,6 +3,7 @@ import 'package:flutteri/constants/common.dart';
 import 'package:flutteri/layout/responsive/responsive_layout_builder.dart';
 import 'package:flutteri/layout/switch/switch_case_widget.dart';
 import 'package:flutteri/routes/component_page_args.dart';
+import 'package:flutteri/views/components/appbar/appbar.dart';
 import 'package:flutteri/views/widgets/buttons.dart';
 import 'package:flutteri/views/widgets/navbar.dart';
 
@@ -70,7 +71,7 @@ class MyComponentPage extends StatelessWidget {
           activeState: args.pageState,
           stateBuilder: (WidgetSwitchCase? activeState) {
             if (activeState is AppBarCase) {
-              return const Text('App Bar');
+              return const AppBarComponents();
             } else {
               return const Text('Default');
             }
